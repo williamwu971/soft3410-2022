@@ -10,5 +10,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <time.h>
 
 #endif //SOFT3410_2022_MAIN_H
