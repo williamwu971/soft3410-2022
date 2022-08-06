@@ -9,5 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #endif //SOFT3410_2022_MAIN_H

@@ -3,4 +3,4 @@ project(soft3410_2022 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(soft3410_2022 main.c week2/linkedlist_map.c main.h week2/linkedlist_map.h)
+add_executable(soft3410_2022 main.c week2/linkedlist_map.c main.h week2/linkedlist_map.h week2/stack.c week2/stack.h)
