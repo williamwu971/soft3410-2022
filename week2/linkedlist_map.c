@@ -126,10 +126,51 @@ size_t linkedlist_map_size(struct linkedlist_map *map) {
 }
 
 void linkedlist_map_destroy(struct linkedlist_map *n) {
+
+    struct linkedlist_map_entry *curr = n->head;
+
+    while (curr != NULL) {
+
+
+        struct linkedlist_map_entry *next = curr->next;
+
+        n->keydel(curr->key);
+        n->valdel(curr->value);
+        free(curr);
+
+        curr = next;
+    }
+
     free(n);
 }
 
 
+int (cmp)(void *a, void *b) {
+    return ((u_int64_t *) a)[0] != ((u_int64_t *) b)[0];
+}
+
+void (keydel)(void *k) {
+
+}
+
+void (valdel)(void *v) {
+
+}
+
 int main() {
+
+    u_int64_t keys[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    char *values[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
+
+    struct linkedlist_map *map = linkedlist_map_new(cmp, keydel, valdel);
+
+    for (int i = 0; i < 9; i++) {
+        linkedlist_map_put(map, keys + i, values[i]);
+    }
+
+    for (int i = 0; i < 9; i++) {
+        printf("key %llu maps tp %s\n", keys[i], (char *) linkedlist_map_get(map, keys + i));
+    }
+
     return 0;
 }
