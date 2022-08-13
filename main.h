@@ -11,5 +11,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <time.h>
+#include <assert.h>
 
 #endif //SOFT3410_2022_MAIN_H

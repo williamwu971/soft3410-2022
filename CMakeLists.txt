@@ -3,4 +3,4 @@ project(soft3410_2022 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(soft3410_2022 main.c week2/linkedlist_map.c main.h week2/linkedlist_map.h week2/stack.c week2/stack.h week2/sorting.c week2/sorting.h week2/flip.c)
+add_executable(soft3410_2022 main.c week2/linkedlist_map.c main.h week2/linkedlist_map.h week2/stack.c week2/stack.h week2/sorting.c week2/sorting.h week2/flip.c week3/resize_nn.c week3/perf_qn.c week3/unrolling_qn.c)

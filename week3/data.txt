@@ -1,0 +1,4 @@
+#Dimensions Jagged Array Column-Major Order
+1024x1024 0.2 0.1
+2048x2048 0.4 0.2
+4096x4096 0.8 0.3
