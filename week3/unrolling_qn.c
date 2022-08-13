@@ -4,7 +4,7 @@
 
 #include "../main.h"
 
-#define N 1000
+#define N 100000000
 
 void regular(int *a, int *b, int *c) {
     //Regular loop
@@ -46,17 +46,17 @@ int main() {
     declare_timer
     start_timer
     {
-        regular(a, b, c);
+        unrolled(a, b, c);
     }stop_timer("reguler");
 
-    a = generate(1);
-    b = generate(1);
-    c = generate(0);
-
-    start_timer
-    {
-        unrolled(a, b, c);
-    }stop_timer("unrolled");
+//    a = generate(1);
+//    b = generate(1);
+//    c = generate(0);
+//
+//    start_timer
+//    {
+//        unrolled(a, b, c);
+//    }stop_timer("unrolled");
 
     return 0;
 }
