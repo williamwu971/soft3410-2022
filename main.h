@@ -12,5 +12,19 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
+#include <stdint.h>
+#include <sys/time.h>
+
+
+#define declare_timer uint64_t elapsed; \
+   struct timeval st, et;
+
+#define start_timer gettimeofday(&st,NULL);
+
+#define stop_timer(msg, args...) ;do { \
+   gettimeofday(&et,NULL); \
+   elapsed = ((et.tv_sec - st.tv_sec) * 1000000) + (et.tv_usec - st.tv_usec) + 1; \
+   printf("(%s,%d) [%6lums] " msg "\n", __FUNCTION__ , __LINE__, elapsed/1000, ##args); \
+} while(0)
 
 #endif //SOFT3410_2022_MAIN_H
