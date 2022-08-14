@@ -173,4 +173,7 @@ int main() {
     printf("map size: %zu\n", dynamic_array_map_size(map));
 
     dynamic_array_map_destroy(map);
+
+    free(keys);
+    free(vals);
 }
