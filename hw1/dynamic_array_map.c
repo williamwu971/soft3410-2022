@@ -68,6 +68,7 @@ void dynamic_array_map_put(struct dynamic_array_map *map, void *key, void *value
     }
 
     if (map->used == map->cap) {
+        if (map->cap <= 0) map->cap = 1;
         map->cap *= 2;
         map->entries = realloc(map->entries, map->cap * sizeof(struct dynamic_array_map_entry));
     }
