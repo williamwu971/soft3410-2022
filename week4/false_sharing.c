@@ -34,13 +34,12 @@ int main() {
 
     pthread_t threads[T];
     struct thread_data datas[T];
-//    int result[T];
+    int result[T];
 
     for (int i = 0; i < T; i++) {
-//        datas[i].result = result;
-        posix_memalign((void **) &datas[i].result, 64, sizeof(int));
+        datas[i].result = result + i;
+//        posix_memalign((void **) &datas[i].result, 64, sizeof(int));
         datas[i].result[0] = 0;
-//        datas[i].result_index = i;
         datas[i].result_index = 0;
         datas[i].numbers = numbers;
         datas[i].numbers_len = numbers_len_per_t;
