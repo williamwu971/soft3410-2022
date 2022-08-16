@@ -48,18 +48,24 @@ int main() {
         numbers += numbers_len_per_t;
     }
 
-    for (int i = 0; i < T; i++) {
-        pthread_create(threads + i, NULL, worker, datas + i);
-    }
+    declare_timer
 
-    int sum = 0;
-    for (int i = 0; i < T; i++) {
-        pthread_join(threads[i], NULL);
+    start_timer
+    {
+        for (int i = 0; i < T; i++) {
+            pthread_create(threads + i, NULL, worker, datas + i);
+        }
+
+        int sum = 0;
+        for (int i = 0; i < T; i++) {
+            pthread_join(threads[i], NULL);
 //        sum += result[i];
-        sum += datas[i].result[0];
-    }
+            sum += datas[i].result[0];
+        }
 
-    printf("sum: %d", sum);
+        printf("sum: %d", sum);
+    }stop_timer();
+
 
     return 0;
 }
