@@ -6,7 +6,7 @@
 #include <pthread.h>
 
 #define SIZE 1000000000
-#define T 20
+#define T 10
 
 uint64_t *numbers;
 
