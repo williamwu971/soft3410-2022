@@ -34,11 +34,14 @@ int main() {
 
     pthread_t threads[T];
     struct thread_data datas[T];
-    int result[T];
+//    int result[T];
 
     for (int i = 0; i < T; i++) {
-        datas[i].result = result;
-        datas[i].result_index = i;
+//        datas[i].result = result;
+        posix_memalign((void **) &datas[i].result, 64, sizeof(int));
+        datas[i].result[0] = 0;
+//        datas[i].result_index = i;
+        datas[i].result_index = 0;
         datas[i].numbers = numbers;
         datas[i].numbers_len = numbers_len_per_t;
 
@@ -52,7 +55,8 @@ int main() {
     int sum = 0;
     for (int i = 0; i < T; i++) {
         pthread_join(threads[i], NULL);
-        sum += result[i];
+//        sum += result[i];
+        sum += datas[i].result[0];
     }
 
     printf("sum: %d", sum);
