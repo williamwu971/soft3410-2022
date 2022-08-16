@@ -63,7 +63,7 @@ int main() {
             sum += datas[i].result[0];
         }
 
-        printf("sum: %d", sum);
+        printf("sum: %d\n", sum);
     }stop_timer();
 
 
