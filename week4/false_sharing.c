@@ -38,8 +38,8 @@ int main() {
     int result[T];
 
     for (int i = 0; i < T; i++) {
-        datas[i].result = result + i;
-//        posix_memalign((void **) &datas[i].result, 64, sizeof(int));
+//        datas[i].result = result + i;
+        posix_memalign((void **) &datas[i].result, 64, sizeof(int));
         datas[i].result[0] = 0;
         datas[i].result_index = 0;
         datas[i].numbers = numbers;
