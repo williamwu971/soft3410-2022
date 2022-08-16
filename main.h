@@ -15,6 +15,17 @@
 #include <stdint.h>
 #include <sys/time.h>
 
+static __uint128_t g_lehmer64_state;
+
+static void init_seed(void) {
+    srand(time(NULL));
+    g_lehmer64_state = rand();
+}
+
+static uint64_t lehmer64() {
+    g_lehmer64_state *= 0xda942042e4dd58b5;
+    return g_lehmer64_state >> 64;
+}
 
 #define declare_timer uint64_t elapsed; \
    struct timeval st, et;
