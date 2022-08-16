@@ -25,7 +25,7 @@ void *worker(void *data) {
 int main() {
 
     init_seed();
-    int numbers_len = 300000000;
+    int numbers_len = 800000000;
     int numbers_len_per_t = numbers_len / T;
     int *numbers = malloc(numbers_len * sizeof(int));
     for (int i = 0; i < numbers_len; i++) {
