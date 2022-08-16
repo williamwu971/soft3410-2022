@@ -29,7 +29,8 @@ int main() {
     int numbers_len_per_t = numbers_len / T;
     int *numbers = malloc(numbers_len * sizeof(int));
     for (int i = 0; i < numbers_len; i++) {
-        numbers[i] = (int) lehmer64();
+//        numbers[i] = (int) lehmer64();
+        numbers[i] = i;
     }
 
     pthread_t threads[T];
