@@ -7,3 +7,5 @@
 *.svg
 *.folded
 *.perf
+.idea/
+cmake-build-debug/
