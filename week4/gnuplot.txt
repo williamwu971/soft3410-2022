@@ -1,0 +1,10 @@
+# Output Settings
+set terminal png size 800,300
+set output 'out.png'
+
+# Labels, Title and Data
+set key inside bottom right
+set xlabel 'Threads'
+set ylabel 'Time (ms)'
+set title 'False-Sharing Comparison'
+plot "data.txt" using 1:2 title 'Same cacheline' with linespoints

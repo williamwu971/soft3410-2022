@@ -5,7 +5,7 @@
 #include "../main.h"
 #include <pthread.h>
 
-#define T 4
+//#define T 4
 
 struct thread_data {
     int *result;
@@ -22,7 +22,10 @@ void *worker(void *data) {
     return NULL;
 }
 
-int main() {
+int main(int argc, char **argv) {
+
+    if (argc != 2) return 1;
+    int T = atoi(argv[1]);
 
     init_seed();
     int numbers_len = 800000000;
@@ -33,13 +36,13 @@ int main() {
         numbers[i] = i;
     }
 
-    pthread_t threads[T];
-    struct thread_data datas[T];
-    int result[T];
+    pthread_t *threads = malloc(sizeof(pthread_t) * T);
+    struct thread_data *datas = malloc(sizeof(struct thread_data) * T);
+    int *result = malloc(sizeof(int) * T);
 
     for (int i = 0; i < T; i++) {
-        datas[i].result = result + i;
-//        posix_memalign((void **) &datas[i].result, 64, sizeof(int));
+//        datas[i].result = result + i;
+        posix_memalign((void **) &datas[i].result, 64, sizeof(int));
         datas[i].result[0] = 0;
         datas[i].result_index = 0;
         datas[i].numbers = numbers;
@@ -66,6 +69,7 @@ int main() {
         printf("sum: %d\n", sum);
     }stop_timer();
 
+    fprintf(stderr, "%lu\n", elapsed / 1000);
 
     return 0;
 }
