@@ -5,7 +5,7 @@
 #include "../main.h"
 #include <pthread.h>
 
-#define T 1
+#define T 4
 
 struct thread_data {
     int *result;
