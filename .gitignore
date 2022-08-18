@@ -9,3 +9,4 @@
 *.perf
 .idea/
 cmake-build-debug/
+*data.txt
