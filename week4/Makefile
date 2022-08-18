@@ -10,3 +10,8 @@ false_sharing.out: false_sharing.c
 
 clean:
 	rm -f $(TARGET)
+
+push:
+	git commit -am "-AUTO- `date`" || true
+	git push || true
+
