@@ -38,11 +38,17 @@ int main(int argc, char **argv) {
 
     pthread_t *threads = malloc(sizeof(pthread_t) * T);
     struct thread_data *datas = malloc(sizeof(struct thread_data) * T);
+
+#ifdef FALSE
     int *result = malloc(sizeof(int) * T);
+#endif
 
     for (int i = 0; i < T; i++) {
-//        datas[i].result = result + i;
+#ifdef FALSE
+        datas[i].result = result + i;
+#else
         posix_memalign((void **) &datas[i].result, 64, sizeof(int));
+#endif
         datas[i].result[0] = 0;
         datas[i].result_index = 0;
         datas[i].numbers = numbers;
