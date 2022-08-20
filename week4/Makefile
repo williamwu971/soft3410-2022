@@ -18,7 +18,7 @@ sp_safe_list.out: safe_list.c
 	gcc $^ -o $@ -DSP
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) *.png *.out data.txt
 
 push:
 	git commit -am "-AUTO- `date`" || true

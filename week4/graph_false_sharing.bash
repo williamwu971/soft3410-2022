@@ -13,5 +13,5 @@ for i in {1..8}; do
   printf '\n' >>data.txt
 done
 
-gnuplot <gnuplot.txt || exit
+gnuplot <gnuplot_false_sharing.txt || exit
 echo "done"
