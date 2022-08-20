@@ -27,6 +27,11 @@ static uint64_t lehmer64() {
     return g_lehmer64_state >> 64;
 }
 
+/* data_size in Bytes, time in us, returns bandwith in MB/s */
+static double bandwith(long ops, long time) {
+    return (((double) ops)) / (((double) time) / 1000000.);
+}
+
 #define declare_timer uint64_t elapsed; \
    struct timeval st, et;
 

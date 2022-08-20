@@ -127,7 +127,7 @@ void *step_worker(void *arg) {
                 double a2 = d2 * magnitude / me->mass;
                 double a3 = d3 * magnitude / me->mass;
 
-                // reduce the need to hold lock
+                // reduce the need to hold mutex
                 change_x += a1 * sp->dt;
                 change_y += a2 * sp->dt;
                 change_z += a3 * sp->dt;

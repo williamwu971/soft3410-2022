@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
         printf("sum: %d\n", sum);
     }stop_timer();
 
-    fprintf(stderr, "%lu\n", elapsed / 1000);
+    fprintf(stderr, "%lu", elapsed / 1000);
 
     return 0;
 }

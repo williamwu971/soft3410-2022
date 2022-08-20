@@ -1,6 +1,6 @@
 # Output Settings
 set terminal png size 800,300
-set output 'PLACE.png'
+set output 'false_sharing.png'
 
 # Labels, Title and Data
 set key inside bottom right
@@ -8,4 +8,6 @@ set xlabel 'Threads'
 set ylabel 'Time (ms)'
 set yrange [0:4000]
 set title 'False-Sharing Comparison'
-plot "data.txt" using 1:2 title 'PLACE cacheline' with linespoints
+plot \
+"data.txt" using 1:2 title 'same cacheline' with linespoints, \
+"data.txt" using 1:3 title 'different cacheline' with linespoints
