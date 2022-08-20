@@ -1,21 +1,22 @@
 TARGET=matrix.out false_sharing.out no_false_sharing.out safe_list.out sp_safe_list.out
 
 all: $(TARGET)
+CC=gcc
 
 matrix.out: matrix.c
-	gcc $^ -o $@ -fopenmp
+	${CC} $^ -o $@ -fopenmp -pthread
 
 false_sharing.out: false_sharing.c
-	gcc $^ -o $@ -DFALSE
+	${CC} $^ -o $@ -DFALSE -pthread
 
 no_false_sharing.out: false_sharing.c
-	gcc $^ -o $@
+	${CC} $^ -o $@ -pthread
 
 safe_list.out: safe_list.c
-	gcc $^ -o $@
+	${CC} $^ -o $@ -pthread
 
 sp_safe_list.out: safe_list.c
-	gcc $^ -o $@ -DSP
+	${CC} $^ -o $@ -DSP -pthread
 
 clean:
 	rm -f $(TARGET) *.png *.out data.txt
@@ -23,4 +24,7 @@ clean:
 push:
 	git commit -am "-AUTO- `date`" || true
 	git push || true
+
+download:
+	scp 'xiaoxiang@labos2.cs.usyd.edu.au:/mnt/sdb/xiaoxiang/soft3410-2022/week4/*.png' .
 
