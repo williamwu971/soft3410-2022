@@ -6,7 +6,6 @@ set output 'locks.png'
 set key inside bottom right
 set xlabel 'Threads'
 set ylabel 'locks/sec'
-#set yrange [0:4000]
 set title 'Locks Comparison'
 plot \
 "data.txt" using 1:2 title 'mutex' with linespoints, \

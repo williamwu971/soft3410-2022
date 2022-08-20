@@ -6,7 +6,6 @@ set output 'false_sharing.png'
 set key inside bottom right
 set xlabel 'Threads'
 set ylabel 'Time (ms)'
-set yrange [0:4000]
 set title 'False-Sharing Comparison'
 plot \
 "data.txt" using 1:2 title 'same cacheline' with linespoints, \
