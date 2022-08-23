@@ -7,9 +7,9 @@ rm -f ./*.png
 
 for i in {1..16}; do
   printf '%s ' "$i" >>data.txt
-  taskset -c 0-27 ./safe_list.out 20000000 "$i" 2>>data.txt || exit
+  ./safe_list.out 20000000 "$i" 2>>data.txt || exit
   printf ' ' >>data.txt
-  taskset -c 0-27 ./sp_safe_list.out 20000000 "$i" 2>>data.txt || exit
+  ./sp_safe_list.out 20000000 "$i" 2>>data.txt || exit
   printf '\n' >>data.txt
 done
 

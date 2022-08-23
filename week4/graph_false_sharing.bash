@@ -7,9 +7,9 @@ rm -f ./*.png
 
 for i in {1..16}; do
   printf '%s ' "$i" >>data.txt
-  taskset -c 0-27 ./false_sharing.out "$i" 2>>data.txt || exit
+  ./false_sharing.out "$i" 2>>data.txt || exit
   printf ' ' >>data.txt
-  taskset -c 0-27 ./no_false_sharing.out "$i" 2>>data.txt || exit
+  ./no_false_sharing.out "$i" 2>>data.txt || exit
   printf '\n' >>data.txt
 done
 
