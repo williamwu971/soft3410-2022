@@ -1,68 +1,57 @@
-//
-// Created by xiaoxiang on 8/23/22.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+#include "../main.h"
 
-#define TN (16)
-#define RN (1000000)
+//#define TN (2)
+#define RN (1000000000)
 #define PADDING (128)
 
 struct thread_data {
-    int *result;
-    int result_index;
-    int *numbers;
-    int numbers_len;
+    long *results;
+    long n_iter;
+    int res_index;
+
 };
 
 void *worker(void *data) {
     struct thread_data *d = (struct thread_data *) data;
 
-    for (int i = 0; i < d->numbers_len; i += PADDING) {
-        d->result[d->result_index] += d->numbers[i];
+    for (int i = 0; i < d->n_iter; i++) {
+        d->results[d->res_index] += 1;
     }
     return NULL;
 }
 
-int main() {
+int main(int argc, char **argv) {
 
+    int TN = atoi(argv[1]);
     pthread_t threads[TN];
 
-    struct thread_data s;
+    struct thread_data s[TN];
+    long *results = malloc(sizeof(long) * TN * PADDING);
+    long total = 0;
 
-    int *num = malloc((sizeof(int)) * RN * PADDING);
-    for (int i = 0; i < RN * PADDING; i += PADDING) {
-        num[i] = 1;
-    }
-    s.numbers = num;
-    s.numbers_len = RN * PADDING;
-
-    int *res = malloc(sizeof(int) * TN);
+    declare_timer
+    start_timer
 
     for (int i = 0; i < TN; i++) {
-        res[i] = 0;
-    }
-
-    s.result = res;
-    for (int i = 0; i < TN; i++) {
-        s.result_index = i;
-        pthread_create(threads + i, NULL, worker, &s);
+        s[i].results = results;
+        s[i].res_index = i * PADDING;
+        s[i].n_iter = RN / TN;
+        pthread_create(threads + i, NULL, worker, s + i);
     }
 
     for (int i = 0; i < TN; i++) {
         pthread_join(threads[i], NULL);
+        total += results[s[i].res_index];
     }
 
-    for (int i = 0; i < TN; i++) {
-        printf("%d\n", res[i]);
-    }
+    stop_timer();
 
-
-    free(res);
-    free(num);
+    printf("TOTAL: %ld\n", total);
+    fprintf(stderr, "%lu", elapsed / 1000);
 
     return 0;
 }
