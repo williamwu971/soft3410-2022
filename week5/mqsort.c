@@ -49,11 +49,11 @@ void merge_sort(uint64_t *array, uint64_t size) {
 
         uint64_t half = unit / 2;
 
-        for (uint64_t unit_idx = 0; unit_idx < size / unit; unit_idx++) {
+        for (uint64_t idx = 0; idx < size; idx++) {
 
 
-            uint64_t *left = read_array + unit_idx * unit;
-            uint64_t *right = write_array + unit_idx * unit + half;
+            uint64_t *left = read_array + idx;
+            uint64_t *right = write_array + idx + half;
             uint64_t left_idx = 0;
             uint64_t right_idx = 0;
 
@@ -62,20 +62,20 @@ void merge_sort(uint64_t *array, uint64_t size) {
 
             for (uint64_t i = 0; i < unit; i++) {
                 if (left_idx == half) {
-                    write_array[i] = right[right_idx];
+                    write_array[idx + i] = right[right_idx];
                     right_idx++;
                     continue;
                 } else if (right_idx == half) {
-                    write_array[i] = left[left_idx];
+                    write_array[idx + i] = left[left_idx];
                     left_idx++;
                     continue;
                 }
 
                 if (left[left_idx] < right[right_idx]) {
-                    write_array[i] = left[left_idx];
+                    write_array[idx + i] = left[left_idx];
                     left_idx++;
                 } else {
-                    write_array[i] = right[right_idx];
+                    write_array[idx + i] = right[right_idx];
                     right_idx++;
                 }
 
@@ -252,8 +252,8 @@ int main(int argc, char **argv) {
             " -p %d &",
             getpid()
     );
-    system(command);
-    sleep(1);
+//    system(command);
+//    sleep(1);
 
     clock_gettime(CLOCK_MONOTONIC, &start);
 
@@ -270,7 +270,7 @@ int main(int argc, char **argv) {
 
     clock_gettime(CLOCK_MONOTONIC, &end);
 
-    system("sudo killall -s INT -w perf");
+//    system("sudo killall -s INT -w perf");
 
     elapsed = (double) (end.tv_sec - start.tv_sec);
     elapsed += (double) (end.tv_nsec - start.tv_nsec) / 1000000000.0;
