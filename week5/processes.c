@@ -2,10 +2,7 @@
 // Created by xiaoxiang on 8/28/22.
 //
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <sys/types.h>
+#include "../main.h"
 
 
 void child_handle(int sig) {
