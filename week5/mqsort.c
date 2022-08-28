@@ -130,8 +130,8 @@ void quick_sort_correct(uint64_t *array, uint64_t lo, uint64_t hi) {
     }
 
 //    printf("%lu %lu %lu %lu \n", lo, j, j + 1, hi);
-    printf("%lu p ",pivot);
-    print_array(array, 16);
+//    printf("%lu p ",pivot);
+//    print_array(array, 16);
     quick_sort_correct(array, lo, j);
     quick_sort_correct(array, j + 1, hi);
 
@@ -153,7 +153,8 @@ void quick_sort(uint64_t *array, uint64_t size) {
 
     while (idx_pairs_num > 0) {
 
-        print_array(idx_pairs, idx_pairs_num);
+//        printf("%lu: ", idx_pairs_num);
+//        print_array(idx_pairs, idx_pairs_num);
         uint64_t idx_pairs_num_next = 0;
 
         for (uint64_t idx = 0; idx < idx_pairs_num; idx += 2) {
@@ -162,7 +163,7 @@ void quick_sort(uint64_t *array, uint64_t size) {
             uint64_t hi = idx_pairs[idx + 1];
 
 //            if (lo < 0 || hi < 0 || lo >= hi) break;
-            if (lo >= hi) break;
+            if (lo >= hi) continue;
 
             uint64_t pivot = array[(lo + hi) / 2]; // The value in the middle of the array
 
@@ -229,7 +230,7 @@ int main(int argc, char **argv) {
 
     size_t size = atoi(argv[1]);
     uint64_t *array = generate_allocation(size, 100);
-    print_array(array, size);
+//    print_array(array, size);
 
     struct timespec start;
     struct timespec end;
@@ -237,17 +238,17 @@ int main(int argc, char **argv) {
 
     clock_gettime(CLOCK_MONOTONIC, &start);
 
-//    merge_sort(array, size);
-    quick_sort(array, size);
+    merge_sort(array, size);
+//    quick_sort(array, size);
 //    quick_sort_correct(array, 0, size - 1);
 
-    print_array(array, size);
+//    print_array(array, size);
 
     clock_gettime(CLOCK_MONOTONIC, &end);
     elapsed = (double) (end.tv_sec - start.tv_sec);
     elapsed += (double) (end.tv_nsec - start.tv_nsec) / 1000000000.0;
 
-    check_array(array, size);
+//    check_array(array, size);
 
     //output of time measured in seconds
     printf("timed %s %.2fs\n", "func", elapsed);
