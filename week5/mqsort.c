@@ -226,7 +226,7 @@ void quick_sort(uint64_t *array, uint64_t size) {
 
 int main(int argc, char **argv) {
 
-    if (argc != 2) return 1;
+    if (argc != 3) return 1;
     srand(time(NULL));
 
     size_t size = atoi(argv[1]);
@@ -237,21 +237,44 @@ int main(int argc, char **argv) {
     struct timespec end;
     double elapsed;
 
+    char command[256];
+    sprintf(command,
+            "sudo /home/blepers/linux-huge/tools/perf/perf stat -e "
+            "mem_load_retired.l1_hit,"
+            "mem_load_retired.l1_miss,"
+            "mem_load_retired.l2_hit,"
+            "mem_load_retired.l2_miss,"
+            "mem_load_retired.l3_hit,"
+            "mem_load_retired.l3_miss"
+            " -p %d &",
+            getpid()
+    );
+    system(command);
+    sleep(1);
+
     clock_gettime(CLOCK_MONOTONIC, &start);
 
-//    merge_sort(array, size);
-    quick_sort(array, size);
+    if (strcmp(argv[2], "quick") == 0) {
+        quick_sort(array, size);
+    } else {
+        merge_sort(array, size);
+    }
+
+
 //    quick_sort_correct(array, 0, size - 1);
 
 //    print_array(array, size);
 
     clock_gettime(CLOCK_MONOTONIC, &end);
+
+    system("sudo killall -s INT -w perf");
+
     elapsed = (double) (end.tv_sec - start.tv_sec);
     elapsed += (double) (end.tv_nsec - start.tv_nsec) / 1000000000.0;
 
     check_array(array, size);
 
     //output of time measured in seconds
-    printf("timed %s %.2fs\n", "func", elapsed);
+    printf("timed %s %.2fs\n", argv[2], elapsed);
     return 0;
 }
