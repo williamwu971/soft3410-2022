@@ -203,8 +203,8 @@ void quick_sort(uint64_t *array, uint64_t size) {
                 array[j] = tmp;
             }
 
-            printf("%lu p ",pivot);
-            print_array(array, 16);
+//            printf("%lu p ",pivot);
+//            print_array(array, 16);
         }
 
         idx_pairs_num = idx_pairs_num_next;
