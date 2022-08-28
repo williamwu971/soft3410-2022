@@ -34,7 +34,7 @@ uint64_t *generate_allocation(size_t size, size_t mod) {
     return allocation;
 }
 
-void merge_sort(uint64_t *array, uint64_t size) {
+uint64_t *merge_sort(uint64_t *array, uint64_t size) {
 
 
     // todo: assuming size is divisible by 2
@@ -49,11 +49,11 @@ void merge_sort(uint64_t *array, uint64_t size) {
 
         uint64_t half = unit / 2;
 
-        for (uint64_t idx = 0; idx < size; idx++) {
+        for (uint64_t idx = 0; idx < size; idx += unit) {
 
 
             uint64_t *left = read_array + idx;
-            uint64_t *right = write_array + idx + half;
+            uint64_t *right = read_array + idx + half;
             uint64_t left_idx = 0;
             uint64_t right_idx = 0;
 
@@ -61,6 +61,7 @@ void merge_sort(uint64_t *array, uint64_t size) {
 //            uint64_t *start = left;
 
             for (uint64_t i = 0; i < unit; i++) {
+
                 if (left_idx == half) {
                     write_array[idx + i] = right[right_idx];
                     right_idx++;
@@ -81,17 +82,23 @@ void merge_sort(uint64_t *array, uint64_t size) {
 
             }
 
+//            printf("%lu-%lu ",left_idx,right_idx);
+
 //            memcpy(start, tmp, sizeof(uint64_t) * unit);
 
 
         }
+
+//        puts("");
         unit *= 2;
+
 
         uint64_t *copy = read_array;
         read_array = write_array;
         write_array = copy;
-
     }
+
+    return read_array;
 }
 
 int compar(const void *a, const void *b) {
@@ -144,7 +151,7 @@ void quick_sort_correct(uint64_t *array, uint64_t lo, uint64_t hi) {
 
 }
 
-void quick_sort(uint64_t *array, uint64_t size) {
+uint64_t *quick_sort(uint64_t *array, uint64_t size) {
 
 
     uint64_t *idx_pairs_0 = malloc(sizeof(uint64_t) * size * 2);
@@ -225,6 +232,7 @@ void quick_sort(uint64_t *array, uint64_t size) {
 //    quick_sort(array, lo, j);
 //    quick_sort(array, j + 1, hi);
 
+    return array;
 }
 
 int main(int argc, char **argv) {
@@ -233,7 +241,7 @@ int main(int argc, char **argv) {
     srand(time(NULL));
 
     size_t size = atoi(argv[1]);
-    uint64_t *array = generate_allocation(size, 100);
+    uint64_t *array = generate_allocation(size, 20);
 //    print_array(array, size);
 
     struct timespec start;
@@ -258,9 +266,9 @@ int main(int argc, char **argv) {
     clock_gettime(CLOCK_MONOTONIC, &start);
 
     if (strcmp(argv[2], "quick") == 0) {
-        quick_sort(array, size);
+        array = quick_sort(array, size);
     } else {
-        merge_sort(array, size);
+        array = merge_sort(array, size);
     }
 
 
