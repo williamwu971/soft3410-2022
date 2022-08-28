@@ -227,6 +227,7 @@ void quick_sort(uint64_t *array, uint64_t size) {
 int main(int argc, char **argv) {
 
     if (argc != 2) return 1;
+    srand(time(NULL));
 
     size_t size = atoi(argv[1]);
     uint64_t *array = generate_allocation(size, 100);
@@ -238,8 +239,8 @@ int main(int argc, char **argv) {
 
     clock_gettime(CLOCK_MONOTONIC, &start);
 
-    merge_sort(array, size);
-//    quick_sort(array, size);
+//    merge_sort(array, size);
+    quick_sort(array, size);
 //    quick_sort_correct(array, 0, size - 1);
 
 //    print_array(array, size);
@@ -248,7 +249,7 @@ int main(int argc, char **argv) {
     elapsed = (double) (end.tv_sec - start.tv_sec);
     elapsed += (double) (end.tv_nsec - start.tv_nsec) / 1000000000.0;
 
-//    check_array(array, size);
+    check_array(array, size);
 
     //output of time measured in seconds
     printf("timed %s %.2fs\n", "func", elapsed);
