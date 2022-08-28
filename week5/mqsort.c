@@ -42,6 +42,9 @@ void merge_sort(uint64_t *array, uint64_t size) {
     uint64_t unit = 2;
     uint64_t *tmp = malloc(size * sizeof(uint64_t));
 
+    uint64_t *read_array = array;
+    uint64_t *write_array = tmp;
+
     while (unit <= size) {
 
         uint64_t half = unit / 2;
@@ -49,41 +52,45 @@ void merge_sort(uint64_t *array, uint64_t size) {
         for (uint64_t unit_idx = 0; unit_idx < size / unit; unit_idx++) {
 
 
-            uint64_t *left = array + unit_idx * unit;
-            uint64_t *right = array + unit_idx * unit + half;
+            uint64_t *left = read_array + unit_idx * unit;
+            uint64_t *right = write_array + unit_idx * unit + half;
             uint64_t left_idx = 0;
             uint64_t right_idx = 0;
 
 
-            uint64_t *start = left;
+//            uint64_t *start = left;
 
             for (uint64_t i = 0; i < unit; i++) {
                 if (left_idx == half) {
-                    tmp[i] = right[right_idx];
+                    write_array[i] = right[right_idx];
                     right_idx++;
                     continue;
                 } else if (right_idx == half) {
-                    tmp[i] = left[left_idx];
+                    write_array[i] = left[left_idx];
                     left_idx++;
                     continue;
                 }
 
                 if (left[left_idx] < right[right_idx]) {
-                    tmp[i] = left[left_idx];
+                    write_array[i] = left[left_idx];
                     left_idx++;
                 } else {
-                    tmp[i] = right[right_idx];
+                    write_array[i] = right[right_idx];
                     right_idx++;
                 }
 
             }
 
-            memcpy(start, tmp, sizeof(uint64_t) * unit);
+//            memcpy(start, tmp, sizeof(uint64_t) * unit);
+
 
         }
         unit *= 2;
 
-//        puts("===");
+        uint64_t *copy = read_array;
+        read_array = write_array;
+        write_array = copy;
+
     }
 }
 
@@ -210,13 +217,9 @@ void quick_sort(uint64_t *array, uint64_t size) {
 
         idx_pairs_num = idx_pairs_num_next;
 
-        if (idx_pairs_next == idx_pairs_0) {
-            idx_pairs_next = idx_pairs_1;
-            idx_pairs = idx_pairs_0;
-        } else {
-            idx_pairs_next = idx_pairs_0;
-            idx_pairs = idx_pairs_1;
-        }
+        uint64_t *tmp = idx_pairs_next;
+        idx_pairs_next = idx_pairs;
+        idx_pairs = tmp;
     }
 
 //    quick_sort(array, lo, j);
