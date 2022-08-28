@@ -67,8 +67,12 @@ int main(int argc, char **argv) {
 
     char command[128];
     sprintf(command,
-            "sudo /home/blepers/linux-huge/tools/perf/perf stat -e cache-misses,cache-references -p %d > perf_%s.txt 2>&1 &",
-            getpid(), argv[1]);
+            "sudo /home/blepers/linux-huge/tools/perf/perf stat -e cache-misses,cache-references -p %d "
+            //            "> perf_%s.txt 2>&1 "
+            "&",
+            getpid()
+//            argv[1]
+    );
     system(command);
     sleep(1);
 
