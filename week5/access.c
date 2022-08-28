@@ -65,13 +65,17 @@ int main(int argc, char **argv) {
     void *allocation = generate_allocation(iterations, bytes, 100);
     size_t *indexes = generate_allocation(iterations, sizeof(size_t), (iterations - 1) * bytes);
 
-    char command[128];
+    char command[256];
     sprintf(command,
-            "sudo /home/blepers/linux-huge/tools/perf/perf stat -e cache-misses,cache-references -p %d "
-            //            "> perf_%s.txt 2>&1 "
-            "&",
+            "sudo /home/blepers/linux-huge/tools/perf/perf stat -e "
+            "mem_load_retired.l1_hit,"
+            "mem_load_retired.l1_miss,"
+            "mem_load_retired.l2_hit,"
+            "mem_load_retired.l2_miss,"
+            "mem_load_retired.l3_hit,"
+            "mem_load_retired.l3_miss"
+            " -p %d &",
             getpid()
-//            argv[1]
     );
     system(command);
     sleep(1);
