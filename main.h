@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <sys/time.h>
 #include <errno.h>
+#include <signal.h>
 
 static __uint128_t g_lehmer64_state;
 

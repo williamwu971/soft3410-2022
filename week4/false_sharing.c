@@ -6,6 +6,7 @@
 #include <pthread.h>
 
 //#define T 4
+//#define FALSE
 
 struct thread_data {
     int *result;
