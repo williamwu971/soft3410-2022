@@ -260,8 +260,8 @@ int main(int argc, char **argv) {
             " -p %d &",
             getpid()
     );
-//    system(command);
-//    sleep(1);
+    system(command);
+    sleep(1);
 
     clock_gettime(CLOCK_MONOTONIC, &start);
 
@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
 
     clock_gettime(CLOCK_MONOTONIC, &end);
 
-//    system("sudo killall -s INT -w perf");
+    system("sudo killall -s INT -w perf");
 
     elapsed = (double) (end.tv_sec - start.tv_sec);
     elapsed += (double) (end.tv_nsec - start.tv_nsec) / 1000000000.0;
