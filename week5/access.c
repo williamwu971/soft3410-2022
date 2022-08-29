@@ -97,6 +97,6 @@ int main(int argc, char **argv) {
     system("sudo killall -s INT -w perf");
 
     //output of time measured in seconds
-    printf("timed %s %.2fs\n", argv[1], elapsed);
+    fprintf(stderr, "timed %s %.2fs\n", argv[1], elapsed);
 
 }
