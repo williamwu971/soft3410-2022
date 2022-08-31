@@ -1,0 +1,12 @@
+# Output Settings
+set terminal png size 800,300
+set output 'matrix.png'
+
+# Labels, Title and Data
+set key outside bottom right
+set xlabel 'size'
+set ylabel 'Time (s)'
+set title 'Matrix Multiplication Comparison'
+plot \
+"data.txt" using 1:2 title 'yxk' with linespoints, \
+"data.txt" using 1:3 title 'ykx' with linespoints
