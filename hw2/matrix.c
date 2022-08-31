@@ -43,7 +43,7 @@ void multiply(const float *mata, size_t mata_width, size_t mata_height,
 
 
         T_stop_timer("");
-        fprintf(stderr, "%.2f", elapsed);
+//        fprintf(stderr, "%.2f", elapsed);
     }
 }
 
@@ -53,11 +53,21 @@ float *generate_mat(size_t mata_width, size_t mata_height) {
 
     for (size_t i = 0; i < mata_height; i++) {
         for (size_t j = 0; j < mata_width; j++) {
-            mat[i * mata_width + j] = i * mata_width + j;
+//            mat[i * mata_width + j] = i * mata_width + j;
+            mat[i * mata_width + j] = 1;
         }
     }
 
     return mat;
+}
+
+void print_matrix(float *matrix, size_t mata_width, size_t mata_height) {
+    for (size_t i = 0; i < mata_height; i++) {
+        for (size_t j = 0; j < mata_width; j++) {
+            printf("%.0f ", matrix[i * mata_width + j]);
+        }
+        puts("");
+    }
 }
 
 int main(int argc, char **argv) {
@@ -79,6 +89,8 @@ int main(int argc, char **argv) {
              b, size, size,
              &r, &r_width, &r_height,
              fashion);
+
+    print_matrix(r, r_width, r_height);
 
     return 0;
 }
