@@ -9,6 +9,8 @@ for i in {6..10}; do
   ./a.out $((2 ** i)) 0 2>>data.txt || exit
   printf ' ' >>data.txt
   ./a.out $((2 ** i)) 1 2>>data.txt || exit
+  printf ' ' >>data.txt
+  ./a.out $((2 ** i)) 2 2>>data.txt || exit
   printf '\n' >>data.txt
 done
 
