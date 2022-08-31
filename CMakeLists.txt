@@ -7,4 +7,4 @@ add_executable(soft3410_2022 main.c week2/linkedlist_map.c main.h week2/linkedli
         week2/sorting.c week2/sorting.h week2/flip.c
         week3/resize_nn.c week3/perf_qn.c week3/unrolling_qn.c
         hw1/dynamic_array_map.c hw1/dynamic_array_map.h week4/welcome.c week4/parallel_sum.c week4/false_sharing.c
-        week4/matrix.c nbody/nbody.h nbody/nbody.c week4/safe_list.c student/quanhao_false.c student/quanhao_non_false.c week5/access.c week5/mqsort.c week5/processes.c week5/ham.c)
+        week4/matrix.c nbody/nbody.h nbody/nbody.c week4/safe_list.c student/quanhao_false.c student/quanhao_non_false.c week5/access.c week5/mqsort.c week5/processes.c week5/ham.c student/kang_false_sharing.c hw2/matrix.c)

@@ -5,7 +5,7 @@ make || exit
 rm -f data.txt
 rm -f ./*.png
 
-for i in {1..4}; do
+for i in {1..6}; do
   printf '%s ' "$i" >>data.txt
   ./false_sharing.out "$i" 2>>data.txt || exit
   printf ' ' >>data.txt

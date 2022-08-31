@@ -3,10 +3,10 @@ TARGET=false_sharing.out no_false_sharing.out
 all: $(TARGET)
 CC=gcc
 
-false_sharing.out: quanhao_false.c
-	${CC} $^ -o $@ -pthread
+false_sharing.out: kang_false_sharing.c
+	${CC} $^ -o $@ -pthread -DCACHE_LINE_ALIGN
 
-no_false_sharing.out: quanhao_non_false.c
+no_false_sharing.out: kang_false_sharing.c
 	${CC} $^ -o $@ -pthread
 
 clean:

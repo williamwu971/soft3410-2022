@@ -54,4 +54,15 @@ static double bandwith(long ops, long time) {
       exit(-1); \
    } while(0)
 
+#define T_declare_timer struct timespec start;struct timespec end;double elapsed
+
+#define T_start_timer do {clock_gettime(CLOCK_MONOTONIC, &start);} while (0)
+
+#define T_stop_timer(msg, args...) ;do { \
+   clock_gettime(CLOCK_MONOTONIC, &end); \
+   elapsed = (double) (end.tv_sec - start.tv_sec); \
+   elapsed += (double) (end.tv_nsec - start.tv_nsec) / 1000000000.0; \
+   printf("(%s,%d) [%6.2fs] " msg "\n", __FUNCTION__ , __LINE__, elapsed, ##args); \
+} while(0)
+
 #endif //SOFT3410_2022_MAIN_H
