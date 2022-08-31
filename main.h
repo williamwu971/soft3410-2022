@@ -5,6 +5,8 @@
 #ifndef SOFT3410_2022_MAIN_H
 #define SOFT3410_2022_MAIN_H
 
+#define _GNU_SOURCE
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +20,8 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <signal.h>
+#include <sched.h>
+#include <pthread.h>
 
 static __uint128_t g_lehmer64_state;
 
@@ -64,5 +68,13 @@ static double bandwith(long ops, long time) {
    elapsed += (double) (end.tv_nsec - start.tv_nsec) / 1000000000.0; \
    printf("(%s,%d) [%6.2fs] " msg "\n", __FUNCTION__ , __LINE__, elapsed, ##args); \
 } while(0)
+
+#define pin(id) do{ \
+    cpu_set_t cpu; \
+    CPU_ZERO(&cpu); \
+    CPU_SET(id, &cpu); \
+    pthread_t self = pthread_self(); \
+    pthread_setaffinity_np(self,sizeof(cpu_set_t),&cpu);\
+}while (0)
 
 #endif //SOFT3410_2022_MAIN_H
