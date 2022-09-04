@@ -1,6 +1,9 @@
 //
 // Created by Xiaoxiang Wu on 5/9/2022.
 //
+//
+// Created by Xiaoxiang Wu on 5/9/2022.
+//
 
 #include "../main.h"
 
@@ -12,7 +15,6 @@ struct dumb_tree_node {
     struct dumb_tree_node *left;
     struct dumb_tree_node *right;
 
-    pthread_mutex_t lock;
 };
 
 struct dumb_tree {
@@ -35,7 +37,6 @@ struct dumb_tree *dumb_tree_new() {
 struct dumb_tree_node *dumb_tree_node_new(int index, void *value) {
 
     struct dumb_tree_node *node = calloc(1, sizeof(struct dumb_tree));
-    pthread_mutex_init(&node->lock, NULL);
     node->index = index;
     node->value = value;
 
@@ -55,16 +56,9 @@ void dumb_tree_put(struct dumb_tree *tree, int index, void *value) {
         return;
     }
 
-    pthread_mutex_unlock(&tree->root_lock);
-
-
     bool cond = true;
 
     while (cond) {
-
-        pthread_mutex_t *target_lock = &current->lock;
-
-        pthread_mutex_lock(target_lock);
 
         if (current->index == index) {
             current->value = value;
@@ -87,23 +81,19 @@ void dumb_tree_put(struct dumb_tree *tree, int index, void *value) {
             puts("impossible!");
         }
 
-        pthread_mutex_unlock(target_lock);
-
     }
 
+    pthread_mutex_unlock(&tree->root_lock);
 }
 
 void *dumb_tree_get(struct dumb_tree *tree, int index) {
     struct dumb_tree_node *current;
     pthread_mutex_lock(&tree->root_lock);
     current = tree->root;
-    pthread_mutex_unlock(&tree->root_lock);
+
 
 
     while (current != NULL) {
-        pthread_mutex_t *target_lock = &current->lock;
-
-        pthread_mutex_lock(target_lock);
 
         if (current->index == index) {
             break;
@@ -115,14 +105,14 @@ void *dumb_tree_get(struct dumb_tree *tree, int index) {
             puts("impossible!");
         }
 
-        pthread_mutex_unlock(target_lock);
     }
 
     void *value = NULL;
     if (current != NULL) {
         value = current->value;
-        pthread_mutex_unlock(&current->lock);
     }
+
+    pthread_mutex_unlock(&tree->root_lock);
 
     return value;
 }
