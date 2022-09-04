@@ -101,4 +101,21 @@ static double bandwith(long ops, long time) {
     }                            \
 }while(0)
 
+void shuffle(void *array, size_t n, size_t size) {
+    if (n <= 1) return;
+    srand(time(NULL));
+
+    size_t i;
+    void *buffer = malloc(size);
+
+    for (i = 0; i < n - 1; i++) {
+        size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+
+        memcpy(buffer, array + j * size, size);
+        memcpy(array + j * size, array + i * size, size);
+        memcpy(array + i * size, buffer, size);
+    }
+
+}
+
 #endif //SOFT3410_2022_MAIN_H
