@@ -1,0 +1,11 @@
+# Output Settings
+set terminal png size 800,300
+set output 'atom.png'
+
+# Labels, Title and Data
+set key outside bottom right
+set xlabel 'Threads'
+set ylabel 'Time(ms)'
+set title 'Atomic operations'
+plot \
+"data.txt" using 1:2 title 'atom' with linespoints

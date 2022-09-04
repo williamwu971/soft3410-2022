@@ -22,6 +22,9 @@
 #include <signal.h>
 #include <sched.h>
 #include <pthread.h>
+#include <stdbool.h>
+#include <semaphore.h>
+#include <stdatomic.h>
 
 static __uint128_t g_lehmer64_state;
 
@@ -76,5 +79,26 @@ static double bandwith(long ops, long time) {
     pthread_t self = pthread_self(); \
     pthread_setaffinity_np(self,sizeof(cpu_set_t),&cpu);\
 }while (0)
+
+
+#define declare_parallel(N) \
+    pthread_attr_t attrs[N];    \
+    cpu_set_t cpus[N];\
+    pthread_t threads[N];\
+    for (int C = 0; C < (N); C++) {\
+        CPU_ZERO(cpus + C);\
+        CPU_SET(C + 1, cpus + C);\
+        pthread_attr_init(attrs + C);\
+        pthread_attr_setaffinity_np(attrs + C, sizeof(cpu_set_t), cpus + C);\
+    }
+
+#define run_parallel(N, ROUTINE) do{ \
+    for (int C = 0; C < (N); C++) {\
+        pthread_create(threads + C, attrs + C, ROUTINE, NULL);\
+    }                                \
+    for (int C = 0; C < (N); C++) {  \
+        pthread_join(threads[C], NULL);\
+    }                            \
+}while(0)
 
 #endif //SOFT3410_2022_MAIN_H
