@@ -7,9 +7,11 @@
 sem_t *sem;
 pthread_mutex_t *mutex;
 
+int iter;
+
 void *func() {
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < iter; i++) {
         sem_wait(sem);
         sem_post(sem);
     }
@@ -20,6 +22,9 @@ void *func() {
 int main(int argc, char **argv) {
 
 
+    int num_thread = atoi(argv[2]);
+    iter = atoi(argv[1]) / num_thread;
+
     sem_t s;
     pthread_mutex_t m;
 
@@ -29,11 +34,11 @@ int main(int argc, char **argv) {
     sem = &s;
     mutex = &m;
 
-    declare_parallel(4);
+    declare_parallel(num_thread);
     declare_timer
     start_timer
 
-    run_parallel(4, func);
+    run_parallel(num_thread, func);
 
 
     stop_timer();
