@@ -4,6 +4,30 @@
 
 #include "../main.h"
 
+
+
+
+
+
+/**
+ *
+ * p0: 0 -> 1
+ * p1: 1 -> 2
+ * p2: 0 -> 2
+ *
+ *
+ *
+ *
+ */
+
+
+
+
+
+
+
+
+
 #define THINKERS 4
 
 struct args {
@@ -17,19 +41,19 @@ void *dine(void *arg) {
     struct args a = *((struct args *) arg);
     const unsigned id = a.id;
 
-//    pthread_mutex_t *chopstick0;
-//    pthread_mutex_t *chopstick1;
-//
+    pthread_mutex_t *chopstick0;
+    pthread_mutex_t *chopstick1;
+
 //    chopstick0 = a.locks + id;
 //    chopstick1 = a.locks + (id + 1) % THINKERS;
 
-//    if (id != THINKERS - 1) {
-//        chopstick0 = a.locks + id;
-//        chopstick1 = a.locks + id + 1;
-//    } else {
-//        chopstick0 = a.locks;
-//        chopstick1 = a.locks + id;
-//    }
+    if (id != THINKERS - 1) {
+        chopstick0 = a.locks + id;
+        chopstick1 = a.locks + id + 1;
+    } else {
+        chopstick0 = a.locks;
+        chopstick1 = a.locks + id;
+    }
 
     for (int i = 0; i < 1000; i++) {
 
@@ -37,17 +61,17 @@ void *dine(void *arg) {
         // the ith philosopher can only reach
         // the ith and (i + 1)th chopstick
 
-//        pthread_mutex_lock(chopstick0);
-//        pthread_mutex_lock(chopstick1);
+        pthread_mutex_lock(chopstick0);
+        pthread_mutex_lock(chopstick1);
 
-        sem_wait(a.sem);
+//        sem_wait(a.sem);
 
         printf("Philosopher %u is eating\n", id);
 
-        sem_post(a.sem);
+//        sem_post(a.sem);
 
-//        pthread_mutex_unlock(chopstick0);
-//        pthread_mutex_unlock(chopstick1);
+        pthread_mutex_unlock(chopstick0);
+        pthread_mutex_unlock(chopstick1);
     }
     return NULL;
 }
