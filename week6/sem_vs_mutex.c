@@ -9,11 +9,20 @@ pthread_mutex_t *mutex;
 
 int iter;
 
-void *func() {
+void *sem_func() {
 
     for (int i = 0; i < iter; i++) {
-//        sem_wait(sem);
-//        sem_post(sem);
+        sem_wait(sem);
+        sem_post(sem);
+
+    }
+
+    return NULL;
+}
+
+void *mutex_func() {
+
+    for (int i = 0; i < iter; i++) {
 
         pthread_mutex_lock(mutex);
         pthread_mutex_unlock(mutex);
@@ -39,10 +48,12 @@ int main(int argc, char **argv) {
 
     declare_parallel(num_thread);
     declare_timer
+
     start_timer
+    run_parallel(num_thread, mutex_func);
+    stop_timer("mutex");
 
-    run_parallel(num_thread, func);
-
-
-    stop_timer();
+    start_timer
+    run_parallel(num_thread, sem_func);
+    stop_timer("sem");
 }
