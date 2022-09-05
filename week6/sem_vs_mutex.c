@@ -12,8 +12,11 @@ int iter;
 void *func() {
 
     for (int i = 0; i < iter; i++) {
-        sem_wait(sem);
-        sem_post(sem);
+//        sem_wait(sem);
+//        sem_post(sem);
+
+        pthread_mutex_lock(mutex);
+        pthread_mutex_unlock(mutex);
     }
 
     return NULL;
