@@ -40,20 +40,18 @@ int main(int argc, char **argv) {
     sem_t s;
     pthread_mutex_t m;
 
-    printf("sem: %d\n",sem_init(&s, 0, 1));
+    printf("sem: %d\n", sem_init(&s, 0, 1));
     pthread_mutex_init(&m, NULL);
 
     sem = &s;
     mutex = &m;
 
-//    declare_parallel(num_thread);
-//    declare_timer
-//
-//    start_timer
-//    run_parallel(num_thread, mutex_func);
-//    stop_timer("mutex");
-//
-//    start_timer
-//    run_parallel(num_thread, sem_func);
-//    stop_timer("sem");
+    declare_parallel(num_thread);
+    declare_timer
+
+    start_timer
+    run_parallel(num_thread, mutex_func);stop_timer("mutex");
+
+    start_timer
+    run_parallel(num_thread, sem_func);stop_timer("sem");
 }
