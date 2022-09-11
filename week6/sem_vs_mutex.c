@@ -25,6 +25,7 @@ void *mutex_func() {
     for (int i = 0; i < iter; i++) {
 
         pthread_mutex_lock(mutex);
+        ///
         pthread_mutex_unlock(mutex);
     }
 

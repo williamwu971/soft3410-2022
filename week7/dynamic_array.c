@@ -143,8 +143,6 @@ int main(int argc, char **argv) {
     if (argc != 3) return 1;
 
     use_rwlock = atoi(argv[1]);
-    write_workload = 10000000 * atoi(argv[2]) / 100;
-    read_workload = 10000000 - write_workload;
 
     array = dynamic_array_new(64);
 
@@ -155,9 +153,16 @@ int main(int argc, char **argv) {
     declare_timer
     declare_parallel(N);
 
+    write_workload = 10000000 * atoi(argv[2]) / 100;
+    read_workload = 0;
+
     start_timer
-    run_parallel(N, thread);
+    run_parallel(N, thread);stop_timer();
 
 
-    stop_timer();
+    read_workload = 10000000 - write_workload;
+    write_workload = 0;
+
+    start_timer
+    run_parallel(N, thread);stop_timer();
 }
