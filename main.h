@@ -84,7 +84,8 @@ static double bandwith(long ops, long time) {
 #define declare_parallel(N) \
     pthread_attr_t attrs[N];    \
     cpu_set_t cpus[N];\
-    pthread_t threads[N];\
+    pthread_t threads[N];   \
+    void* returns[N];\
     for (int C = 0; C < (N); C++) {\
         CPU_ZERO(cpus + C);\
         CPU_SET(C + 1, cpus + C);\
@@ -97,25 +98,25 @@ static double bandwith(long ops, long time) {
         pthread_create(threads + C, attrs + C, ROUTINE, NULL);\
     }                                \
     for (int C = 0; C < (N); C++) {  \
-        pthread_join(threads[C], NULL);\
+        pthread_join(threads[C], returns+C);\
     }                            \
 }while(0)
 
-void shuffle(void *array, size_t n, size_t size) {
-    if (n <= 1) return;
-    srand(time(NULL));
-
-    size_t i;
-    void *buffer = malloc(size);
-
-    for (i = 0; i < n - 1; i++) {
-        size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
-
-        memcpy(buffer, array + j * size, size);
-        memcpy(array + j * size, array + i * size, size);
-        memcpy(array + i * size, buffer, size);
-    }
-
-}
+#define shuffle(array, n, size) do {\
+    if ((n) <= 1) break;\
+    srand(time(NULL));\
+\
+    size_t i;\
+    void *buffer = malloc(size);\
+\
+    for (i = 0; i < (n) - 1; i++) {\
+        size_t j = i + rand() / (RAND_MAX / ((n) - i) + 1);\
+\
+        memcpy(buffer, (array) + j * (size), size);\
+        memcpy((array) + j * (size), (array) + i * (size), size);\
+        memcpy((array) + i * (size), buffer, size);\
+    }\
+\
+}while(0)
 
 #endif //SOFT3410_2022_MAIN_H
