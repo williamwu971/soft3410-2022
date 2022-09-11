@@ -80,7 +80,7 @@ static double bandwith(long ops, long time) {
     pthread_setaffinity_np(self,sizeof(cpu_set_t),&cpu);\
 }while (0)
 
-
+#ifdef x64_64
 #define declare_parallel(N) \
     pthread_attr_t attrs[N];    \
     cpu_set_t cpus[N];\
@@ -92,6 +92,15 @@ static double bandwith(long ops, long time) {
         pthread_attr_init(attrs + C);\
         pthread_attr_setaffinity_np(attrs + C, sizeof(cpu_set_t), cpus + C);\
     }
+#else
+#define declare_parallel(N) \
+    pthread_attr_t attrs[N];    \
+    pthread_t threads[N];   \
+    void* returns[N];\
+    for (int C = 0; C < (N); C++) {\
+        pthread_attr_init(attrs + C);\
+    }
+#endif
 
 #define run_parallel(N, ROUTINE) do{ \
     for (int C = 0; C < (N); C++) {\
