@@ -25,6 +25,12 @@
 #include <stdbool.h>
 #include <semaphore.h>
 #include <stdatomic.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <poll.h>
 
 static __uint128_t g_lehmer64_state;
 
@@ -80,7 +86,7 @@ static double bandwith(long ops, long time) {
     pthread_setaffinity_np(self,sizeof(cpu_set_t),&cpu);\
 }while (0)
 
-#ifdef x64_64
+#if defined(__x86_64__)
 #define declare_parallel(N) \
     pthread_attr_t attrs[N];    \
     cpu_set_t cpus[N];\

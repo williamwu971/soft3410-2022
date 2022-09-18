@@ -155,19 +155,21 @@ void *thread(void *arg) {
 
 }
 
-#define N 7
+#define N 8
 
 int main(int argc, char **argv) {
 
     if (argc != 3) return 1;
 
     int use_rwlock = atoi(argv[1]);
-    double throughput;
+//    double throughput;
 
     array = dynamic_array_new(64, use_rwlock);
 
     for (int i = 0; i < 1000; i++) {
-        dynamic_array_add(array, malloc(1));
+        uint8_t *num = malloc(1);
+        *num = 3;
+        dynamic_array_add(array, num);
     }
 
     declare_timer
@@ -179,13 +181,13 @@ int main(int argc, char **argv) {
 
     start_timer
     run_parallel(N, thread);stop_timer();
-    fprintf(stderr, "%f", bandwith(write_workload, elapsed));
+    fprintf(stderr, "%f ", bandwith(write_workload, elapsed));
 
 
     read_workload = 10000000 - write_workload;
     write_workload = 0;
     printf("write: %lu read: %lu\n", write_workload, read_workload);
-    fprintf(stderr, "%f", bandwith(read_workload, elapsed));
+    fprintf(stderr, "%f ", bandwith(read_workload, elapsed));
 
     start_timer
     run_parallel(N, thread);stop_timer();
