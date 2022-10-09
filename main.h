@@ -31,6 +31,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <poll.h>
+#include <omp.h>
 
 static __uint128_t g_lehmer64_state;
 

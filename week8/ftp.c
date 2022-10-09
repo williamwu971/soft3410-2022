@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
 
     for (size_t i = 0; i < nfds; i++) {
         // Set each file descriptor
-        fds[i].fd = fd;
+//        fds[i].fd = fd;
         fds[i].events = POLLIN | POLLHUP;
     }
 
