@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     } else {
         puts("sequential");
         for (long i = 0; i < nb_accesses; i++) {
-            locations[i] = i * granularity;
+            locations[i] = i * granularity % (len - granularity);
         }
     }
 
