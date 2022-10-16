@@ -29,7 +29,7 @@ struct counter *add(struct counter *curr, char c) {
 
 int main() {
 
-    char *data = "AAGGHHHHHHTTTT";
+    char *data = "AAGGHHHHHHTTTTAAGGHHHHHHTTTTAAGGHHHHHHTTTTAAGGHHHHHHTTTTAAGGHHHHHHTTTTAAGGHHHHHHTTTTAAGGHHHHHHTTTT";
 
     unsigned long len = strlen(data);
 
