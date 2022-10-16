@@ -34,6 +34,7 @@
 #include <omp.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <sys/mman.h>
 
 static __uint128_t g_lehmer64_state;
 
